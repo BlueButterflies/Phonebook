@@ -1,0 +1,2 @@
+﻿Nel Versione  0.14 bug del caricamento foto e documento Xml [2020-01-04]
+

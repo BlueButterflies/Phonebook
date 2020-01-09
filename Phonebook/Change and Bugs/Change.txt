@@ -1,0 +1,16 @@
+﻿3.Version 0.14 [2020-01-04]
+
+- Add: Created picture profil contact 
+- Bug: Risolto [2020-01-07]
+
+2.Version 0.13 [2019-12-20]
+
+- Add: Calculate Age Contact
+
+Version 0.12 [2019-12-11]
+
+- Add: Control Zodiac Sign
+
+1.Varesion 0.11 [2019-12-06]
+
+- Created Search Contacts
