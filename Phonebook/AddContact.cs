@@ -32,6 +32,7 @@ namespace Phonebook
         public string PostalCode { get; set; }
         public string Note { get; set; }
         public int EditContact { get; set; }
+        public string PictureProfil { get; set; }
 
         public AddContact()
         {
@@ -41,8 +42,6 @@ namespace Phonebook
         #region Control for correct entry
         private void button_add_Click(object sender, EventArgs e)
         {
-
-
             // Control Name and Last Name which contains letters and spaces
             if (textBox_name.Text.Length < 2)
             {
@@ -171,11 +170,16 @@ namespace Phonebook
             {
                 currentDate = " ";
             }
-            //else
-            //{
-            //    currentDate = ;
-            //}
 
+            //Control for extetion picture
+            string extetionPicture = "";
+
+            if (picture.Tag != null)
+            {
+                extetionPicture = Path.GetExtension(picture.Tag.ToString());
+            }
+
+            //Create document XML
             XDocument documentContact = new XDocument
                 (
                 new XElement("contact",
@@ -192,7 +196,7 @@ namespace Phonebook
                 new XElement("city", textBox_city.Text),
                 new XElement("postalCode", textBox_postalCode.Text),
                 new XElement("note", textBox_note.Text),
-                new XElement("picture", Variable.variableDatabasePicture + idCounter + ".jpg")
+                new XElement("picture", Variable.variableDatabasePicture + idCounter + extetionPicture)
                 ));
 
 
@@ -202,7 +206,7 @@ namespace Phonebook
 
             if (picture.Tag != null)
             {
-                File.Copy(picture.Tag.ToString(), Variable.variableDatabasePicture + idCounter + ".jpg");
+                File.Copy(picture.Tag.ToString(), Variable.variableDatabasePicture + idCounter + extetionPicture);
             }
 
             this.Close();
@@ -238,6 +242,27 @@ namespace Phonebook
             textBox_city.Text = City;
             textBox_postalCode.Text = PostalCode;
             textBox_note.Text = Note;
+
+            // Cherge picture profil
+
+            if (EditContact == 1)
+            {
+                if (PictureProfil.Length > 2)
+                {
+                    if (picture.Tag != null)
+                    {
+                        Image imageProfil = Image.FromFile(PictureProfil);
+                        picture.BackgroundImage = imageProfil;
+                        picture.Tag = PictureProfil;
+                    }
+
+                }
+                else
+                {
+                    picture.BackgroundImage = Properties.Resources.DefaultFoto;
+                    picture.Tag = null;
+                }
+            }
         }
         #endregion
 

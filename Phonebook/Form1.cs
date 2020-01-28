@@ -25,6 +25,8 @@ namespace Phonebook
         {
             statusContact.Text = "Contacts: " + Variable.CounterNumberElement().ToString();
 
+            statusContact.Tag = Variable.CounterNumberElement().ToString();
+
             table_phonebook.Rows.Clear();
 
             string[] elements = new string[Variable.CounterNumberElement()];
@@ -49,6 +51,18 @@ namespace Phonebook
                 XmlNode nodePostalCode = document.DocumentElement.SelectSingleNode("/contact/postalCode");
                 XmlNode nodeBirthday = document.DocumentElement.SelectSingleNode("/contact/birthday");
                 XmlNode nodeNote = document.DocumentElement.SelectSingleNode("/contact/note");
+                XmlNode nodePicture = document.DocumentElement.SelectSingleNode("/contact/picture");
+
+                string picture = "";
+
+                if (nodePicture != null)
+                {
+                    picture = nodePicture.InnerText;
+                }
+                else
+                {
+                    picture = "";
+                }
 
                 string[] newElement =
                 {
@@ -65,6 +79,7 @@ namespace Phonebook
                     nodePostalCode.InnerText,
                     nodeBirthday.InnerText,
                     nodeNote.InnerText,
+                    picture
                 };
 
                 table_phonebook.Rows.Add(newElement);
@@ -113,7 +128,17 @@ namespace Phonebook
                 try
                 {
                     File.Delete(Variable.variableDatabase + idContact + ".xml");
-                    File.Delete(Variable.variableDatabasePicture + idContact + ".jpg");
+
+                    if (File.Exists(Variable.variableDatabasePicture + idContact + ".jpg"))
+                    {
+                        File.Delete(Variable.variableDatabasePicture + idContact + ".jpg");
+                    }
+
+                    if (File.Exists(Variable.variableDatabasePicture + idContact + ".png"))
+                    {
+                        File.Delete(Variable.variableDatabasePicture + idContact + ".png");
+                    }
+
                 }
                 catch (Exception message)
                 {
@@ -152,6 +177,8 @@ namespace Phonebook
             addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
             addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
             addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
+            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
+
             addContact.EditContact = 1;
 
             addContact.ShowDialog();
@@ -360,6 +387,106 @@ namespace Phonebook
 
         }
 
+        #region Menu File Export All Contacts
+        private void exportAllContacts_Click(object sender, EventArgs e)
+        {
+            saveExpoContactHtml.ShowDialog();
 
+            try
+            {
+                if (saveExpoContactHtml.FileName != null)
+                {
+                    string htmlFile = GetHtmlFile();
+
+                    File.WriteAllText(saveExpoContactHtml.FileName, htmlFile);
+                    Process.Start(saveExpoContactHtml.FileName);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private string GetHtmlFile()
+        {
+            string resultOfHtml = "<html>\n"
+            + "<head>\n"
+            + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">\n"
+            + "<script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\"></script>\n"
+            + "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js\" integrity=\"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q\" crossorigin=\"anonymous\"></script>\n"
+            + "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js\" integrity=\"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl\" crossorigin=\"anonymous\"></script>\n"
+            + "<style>\n"
+            + ".container-fluid {\n"
+            + "padding-left: 2px\n"
+            + "padding-right: 2px;}\n"
+            + "</style>\n"
+            + "<title>Phonebook</title>\n"
+            + "</head>\n"
+            + "<body class=\"bg-secondary\">\n"
+            + "<div class=\"jumbotron jumbotron-fluid bg-dark text-white\">\n"
+            + "<div class=\"container-fluid\">\n"
+            + "<h1 class=\"display-4\">Phonebook</h1>\n"
+            + "</div>\n"
+            + "</div>\n"
+            + "<div class=\"container-fluid\">\n"
+            + "<table class=\"table table-striped table-dark table-hover\" width=\"100%\">\n"
+            + "<thead class=\"thead-dark\">\n"
+            + "<tr>\n"
+            + "<th scope=\"col\">#</th>\n"
+            + "<th scope=\"col\">Name</th>\n"
+            + "<th scope=\"col\">LastName</th>\n"
+            + "<th scope=\"col\">Phone Number</th>\n"
+            + "<th scope=\"col\">Mobile</th>\n"
+            + "<th scope=\"col\">Office Phone</th>\n"
+            + "<th scope=\"col\">Email</th>\n"
+            + "<th scope=\"col\">Website</th>\n"
+            + "<th scope=\"col\">Address</th>\n"
+            + "<th scope=\"col\">City</th>\n"
+            + "<th scope=\"col\">Postal Code</th>\n"
+            + "<th scope=\"col\">Birthday</th>\n"
+            + "<th scope=\"col\">Note</th>\n"
+            + "</tr>\n"
+            + "</thead>\n"
+            + "<tbody>\n";
+
+            int coutnContacts  = 1;
+
+            for (int i = 0; i < table_phonebook.RowCount - 1; i++)
+            {
+                resultOfHtml += "<tr>\n"
+                    + "<th scope=\"row\">" + coutnContacts + "</th>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[1].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[5].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[6].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[7].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[8].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[9].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[10].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[11].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[12].Value.ToString() + "</td>\n"
+                    + "<\tr>\n";
+
+                coutnContacts++;
+            }
+
+            resultOfHtml += "</tbody>\n"
+                + "<tfoor>\n"
+                + "<tr>\n"
+                + "<td colspan=\"5\"> All Contacts: "+ statusContact.Tag.ToString() + "</td>\n"
+                + "</tr>\n"
+                + "</tfoor>\n"
+                + "</table>\n"
+                + "<p class=\"text-withe\">Html generated from " + Variable.nameSaftware + " " + Variable.verisonSoftware + "</p>\n"
+                  + "</div>\n"
+                + "</body>\n"
+                + "</html>\n";
+            return resultOfHtml;
+        }
+        #endregion
     }
 }

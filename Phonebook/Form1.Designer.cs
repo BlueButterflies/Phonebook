@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(phonebookForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menu_tool_file = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_exit = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,14 +50,6 @@
             this.toolSearch = new System.Windows.Forms.ToolStripButton();
             this.toolTextSearch = new System.Windows.Forms.ToolStripTextBox();
             this.table_phonebook = new System.Windows.Forms.DataGridView();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuRightSendEmail = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuRightWeb = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusContact = new System.Windows.Forms.ToolStripStatusLabel();
-            this.openPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuZodiac = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewAgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ColID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +63,19 @@
             this.ColPostalCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColPicture = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuRightSendEmail = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRightWeb = new System.Windows.Forms.ToolStripMenuItem();
+            this.openPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuZodiac = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewAgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusContact = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAllContacts = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveExpoContactHtml = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.menu_tool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.table_phonebook)).BeginInit();
@@ -93,6 +99,8 @@
             // menu_tool_file
             // 
             this.menu_tool_file.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuExport,
+            this.toolStripSeparator1,
             this.menu_exit});
             this.menu_tool_file.Name = "menu_tool_file";
             this.menu_tool_file.Size = new System.Drawing.Size(37, 20);
@@ -246,24 +254,24 @@
             // table_phonebook
             // 
             this.table_phonebook.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightCoral;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.table_phonebook.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightCoral;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.table_phonebook.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.table_phonebook.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.table_phonebook.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.table_phonebook.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.table_phonebook.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.table_phonebook.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.table_phonebook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.table_phonebook.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColID,
@@ -278,21 +286,22 @@
             this.ColCity,
             this.ColPostalCode,
             this.ColBirthday,
-            this.ColNote});
+            this.ColNote,
+            this.ColPicture});
             this.table_phonebook.Dock = System.Windows.Forms.DockStyle.Fill;
             this.table_phonebook.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.table_phonebook.GridColor = System.Drawing.SystemColors.HotTrack;
             this.table_phonebook.Location = new System.Drawing.Point(0, 82);
             this.table_phonebook.MultiSelect = false;
             this.table_phonebook.Name = "table_phonebook";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.table_phonebook.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.table_phonebook.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.table_phonebook.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.table_phonebook.Size = new System.Drawing.Size(640, 253);
             this.table_phonebook.TabIndex = 3;
@@ -300,71 +309,6 @@
             this.table_phonebook.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_phonebook_CellDoubleClick);
             this.table_phonebook.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.table_phonebook_CellMouseClick);
             this.table_phonebook.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.table_phonebook_CellMouseDoubleClick);
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuRightSendEmail,
-            this.menuRightWeb,
-            this.openPictureToolStripMenuItem,
-            this.menuZodiac,
-            this.viewAgeToolStripMenuItem});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(200, 136);
-            this.contextMenu.Text = "Menu Context";
-            // 
-            // menuRightSendEmail
-            // 
-            this.menuRightSendEmail.Name = "menuRightSendEmail";
-            this.menuRightSendEmail.Size = new System.Drawing.Size(199, 22);
-            this.menuRightSendEmail.Text = "Send Email";
-            this.menuRightSendEmail.Click += new System.EventHandler(this.menuRightSendEmail_Click);
-            // 
-            // menuRightWeb
-            // 
-            this.menuRightWeb.Name = "menuRightWeb";
-            this.menuRightWeb.Size = new System.Drawing.Size(199, 22);
-            this.menuRightWeb.Text = "Go to Website";
-            this.menuRightWeb.Click += new System.EventHandler(this.menuRightWeb_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusContact});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 335);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(640, 22);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // statusContact
-            // 
-            this.statusContact.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.statusContact.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.statusContact.Name = "statusContact";
-            this.statusContact.Size = new System.Drawing.Size(69, 17);
-            this.statusContact.Text = "Contacts:  0";
-            // 
-            // openPictureToolStripMenuItem
-            // 
-            this.openPictureToolStripMenuItem.Name = "openPictureToolStripMenuItem";
-            this.openPictureToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.openPictureToolStripMenuItem.Text = "Open Picture";
-            // 
-            // menuZodiac
-            // 
-            this.menuZodiac.Name = "menuZodiac";
-            this.menuZodiac.Size = new System.Drawing.Size(199, 22);
-            this.menuZodiac.Text = "Calculation Zodiac Sign";
-            this.menuZodiac.Click += new System.EventHandler(this.menuZodiac_Click);
-            // 
-            // viewAgeToolStripMenuItem
-            // 
-            this.viewAgeToolStripMenuItem.Name = "viewAgeToolStripMenuItem";
-            this.viewAgeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.viewAgeToolStripMenuItem.Text = "View Age";
-            this.viewAgeToolStripMenuItem.Click += new System.EventHandler(this.viewAgeToolStripMenuItem_Click);
             // 
             // ColID
             // 
@@ -435,6 +379,103 @@
             this.ColNote.HeaderText = "Note";
             this.ColNote.Name = "ColNote";
             // 
+            // ColPicture
+            // 
+            this.ColPicture.HeaderText = "Picture";
+            this.ColPicture.Name = "ColPicture";
+            this.ColPicture.Visible = false;
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuRightSendEmail,
+            this.menuRightWeb,
+            this.openPictureToolStripMenuItem,
+            this.menuZodiac,
+            this.viewAgeToolStripMenuItem});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(200, 114);
+            this.contextMenu.Text = "Menu Context";
+            // 
+            // menuRightSendEmail
+            // 
+            this.menuRightSendEmail.Name = "menuRightSendEmail";
+            this.menuRightSendEmail.Size = new System.Drawing.Size(199, 22);
+            this.menuRightSendEmail.Text = "Send Email";
+            this.menuRightSendEmail.Click += new System.EventHandler(this.menuRightSendEmail_Click);
+            // 
+            // menuRightWeb
+            // 
+            this.menuRightWeb.Name = "menuRightWeb";
+            this.menuRightWeb.Size = new System.Drawing.Size(199, 22);
+            this.menuRightWeb.Text = "Go to Website";
+            this.menuRightWeb.Click += new System.EventHandler(this.menuRightWeb_Click);
+            // 
+            // openPictureToolStripMenuItem
+            // 
+            this.openPictureToolStripMenuItem.Name = "openPictureToolStripMenuItem";
+            this.openPictureToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.openPictureToolStripMenuItem.Text = "Open Picture";
+            // 
+            // menuZodiac
+            // 
+            this.menuZodiac.Name = "menuZodiac";
+            this.menuZodiac.Size = new System.Drawing.Size(199, 22);
+            this.menuZodiac.Text = "Calculation Zodiac Sign";
+            this.menuZodiac.Click += new System.EventHandler(this.menuZodiac_Click);
+            // 
+            // viewAgeToolStripMenuItem
+            // 
+            this.viewAgeToolStripMenuItem.Name = "viewAgeToolStripMenuItem";
+            this.viewAgeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.viewAgeToolStripMenuItem.Text = "View Age";
+            this.viewAgeToolStripMenuItem.Click += new System.EventHandler(this.viewAgeToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusContact});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 335);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(640, 22);
+            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusContact
+            // 
+            this.statusContact.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.statusContact.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.statusContact.Name = "statusContact";
+            this.statusContact.Size = new System.Drawing.Size(69, 17);
+            this.statusContact.Text = "Contacts:  0";
+            // 
+            // menuExport
+            // 
+            this.menuExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportAllContacts});
+            this.menuExport.Name = "menuExport";
+            this.menuExport.Size = new System.Drawing.Size(180, 22);
+            this.menuExport.Text = "Export";
+            // 
+            // exportAllContacts
+            // 
+            this.exportAllContacts.Name = "exportAllContacts";
+            this.exportAllContacts.Size = new System.Drawing.Size(180, 22);
+            this.exportAllContacts.Text = "All Contacts";
+            this.exportAllContacts.Click += new System.EventHandler(this.exportAllContacts_Click);
+            // 
+            // saveExpoContactHtml
+            // 
+            this.saveExpoContactHtml.DefaultExt = "html";
+            this.saveExpoContactHtml.FileName = "Phonebook";
+            this.saveExpoContactHtml.Filter = "File Html|*.html";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // phonebookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -449,6 +490,7 @@
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(900, 900);
@@ -512,6 +554,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColPostalCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColBirthday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColNote;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColPicture;
+        private System.Windows.Forms.ToolStripMenuItem menuExport;
+        private System.Windows.Forms.ToolStripMenuItem exportAllContacts;
+        private System.Windows.Forms.SaveFileDialog saveExpoContactHtml;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

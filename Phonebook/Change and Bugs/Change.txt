@@ -1,4 +1,10 @@
-﻿3.Version 0.14 [2020-01-04]
+4. Version 0.15 [2020-01-26]
+
+- Add: Remouve picture profil
+- Add: Charge picture profil
+- Resolved problem extetion file picture
+
+3.Version 0.14 [2020-01-04]
 
 - Add: Created picture profil contact 
 - Bug: Risolto [2020-01-07]

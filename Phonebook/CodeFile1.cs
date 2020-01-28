@@ -13,7 +13,7 @@ static class Variable
        .GetFolderPath(Environment.SpecialFolder.DesktopDirectory) +
        @"\Projects\Phonebook\Database\Picture\";
 
-    public static string verisonSoftware = "0.14";
+    public static string verisonSoftware = "0.16";
     public static string nameSaftware = "Phonebook";
 
     public static void ControlRouteDatabase()
