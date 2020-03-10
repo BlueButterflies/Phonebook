@@ -19,6 +19,7 @@ namespace Phonebook
     public partial class AddContact : Form
     {
         public string IdContact { get; set; }
+public string PictureProfil { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string HomePhone { get; set; }
@@ -32,7 +33,7 @@ namespace Phonebook
         public string PostalCode { get; set; }
         public string Note { get; set; }
         public int EditContact { get; set; }
-        public string PictureProfil { get; set; }
+        
 
         public AddContact()
         {
@@ -173,10 +174,17 @@ namespace Phonebook
 
             //Control for extetion picture
             string extetionPicture = "";
+            string databaseFotoFinal = "";
 
             if (picture.Tag != null)
             {
                 extetionPicture = Path.GetExtension(picture.Tag.ToString());
+                databaseFotoFinal = Variable.variableDatabasePicture + idCounter + extetionPicture;
+            }
+            else
+            {
+                extetionPicture = "";
+                databaseFotoFinal = "";
             }
 
             //Create document XML
@@ -184,6 +192,7 @@ namespace Phonebook
                 (
                 new XElement("contact",
 
+                new XElement("picture", databaseFotoFinal),
                 new XElement("name", textBox_name.Text),
                 new XElement("lastName", textBox_lastName.Text),
                 new XElement("homePhone", textBox_home.Text),
@@ -195,22 +204,37 @@ namespace Phonebook
                 new XElement("address", textBox_address.Text),
                 new XElement("city", textBox_city.Text),
                 new XElement("postalCode", textBox_postalCode.Text),
-                new XElement("note", textBox_note.Text),
-                new XElement("picture", Variable.variableDatabasePicture + idCounter + extetionPicture)
+                new XElement("note", textBox_note.Text)
                 ));
-
 
             Variable.ControlRouteDatabase();
 
             documentContact.Save(Variable.variableDatabase + idCounter + ".xml");
 
-            if (picture.Tag != null)
+            if (extetionPicture != "")
             {
-                File.Copy(picture.Tag.ToString(), Variable.variableDatabasePicture + idCounter + extetionPicture);
+                if (picture.Tag.ToString() != databaseFotoFinal)
+                {
+                    File.Copy(picture.Tag.ToString(), databaseFotoFinal, true);
+                }
+            }
+            else
+            {
+                if (File.Exists(PictureProfil) == true)
+                {
+                    try
+                    {
+                        File.Delete(PictureProfil);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
             }
 
             this.Close();
-
         }
         #endregion
 
@@ -231,6 +255,28 @@ namespace Phonebook
                 button_add.Text = "Add";
             }
 
+            // Cherge picture profil
+            if (EditContact == 1)
+            {
+                if (PictureProfil.Length > 2)
+                {
+                    Image imageProfil;
+
+                    using (var imageTemp = new Bitmap(PictureProfil))
+                    {
+                        imageProfil = new Bitmap(imageTemp);
+                    }
+
+                    picture.BackgroundImage = imageProfil;
+                    picture.Tag = PictureProfil;
+                }
+                else
+                {
+                    picture.BackgroundImage = Properties.Resources.DefaultFoto;
+                    picture.Tag = null;
+                }
+            }
+
             textBox_name.Text = Name;
             textBox_lastName.Text = LastName;
             textBox_home.Text = HomePhone;
@@ -242,27 +288,6 @@ namespace Phonebook
             textBox_city.Text = City;
             textBox_postalCode.Text = PostalCode;
             textBox_note.Text = Note;
-
-            // Cherge picture profil
-
-            if (EditContact == 1)
-            {
-                if (PictureProfil.Length > 2)
-                {
-                    if (picture.Tag != null)
-                    {
-                        Image imageProfil = Image.FromFile(PictureProfil);
-                        picture.BackgroundImage = imageProfil;
-                        picture.Tag = PictureProfil;
-                    }
-
-                }
-                else
-                {
-                    picture.BackgroundImage = Properties.Resources.DefaultFoto;
-                    picture.Tag = null;
-                }
-            }
         }
         #endregion
 
@@ -299,16 +324,20 @@ namespace Phonebook
             {
                 if (openChargeFoto.FileName != null)
                 {
-                    Image imageProfil = Image.FromFile(openChargeFoto.FileName);
+                    Image imageProfil;
+
+                    using (var imageTemp = new Bitmap(openChargeFoto.FileName))
+                    {
+                        imageProfil = new Bitmap(imageTemp);
+                    }
 
                     picture.BackgroundImage = imageProfil;
                     picture.Tag = openChargeFoto.FileName;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion
@@ -358,6 +387,11 @@ namespace Phonebook
         }
 
         private void picture_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openChargeFoto_FileOk(object sender, CancelEventArgs e)
         {
 
         }

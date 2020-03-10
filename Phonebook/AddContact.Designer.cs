@@ -314,6 +314,7 @@
             this.openChargeFoto.DefaultExt = "jpg";
             this.openChargeFoto.FileName = "Charge Foto";
             this.openChargeFoto.Filter = "File Jpg|*.jpg|File Png|*.png";
+            this.openChargeFoto.FileOk += new System.ComponentModel.CancelEventHandler(this.openChargeFoto_FileOk);
             // 
             // label12
             // 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Phonebook;
 
 static class Variable
 {
@@ -9,12 +10,20 @@ static class Variable
         .GetFolderPath(Environment.SpecialFolder.DesktopDirectory) +
         @"\Projects\Phonebook\Database\";
 
-    public static string variableDatabasePicture = Environment
-       .GetFolderPath(Environment.SpecialFolder.DesktopDirectory) +
-       @"\Projects\Phonebook\Database\Picture\";
+    public static string variableDatabasePicture = variableDatabase + @"\Picture\";
 
-    public static string verisonSoftware = "0.16";
-    public static string nameSaftware = "Phonebook";
+    public static string verisonSoftware = "0.17";
+    public static string nameSoftware = "Phonebook";
+
+    public static void ControlDatabaseUser()
+    {
+        if (Phonebook.Properties.Settings.Default.DatabasePath != "")
+        {
+            variableDatabase = Phonebook.Properties.Settings.Default.DatabasePath + @"\Projects\Phonebook\Database\";
+
+            variableDatabasePicture = variableDatabase + @"\Picture\";
+        }
+    }
 
     public static void ControlRouteDatabase()
     {

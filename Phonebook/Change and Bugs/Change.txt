@@ -1,3 +1,9 @@
+6. Version 0.17 [2020-03-10]
+- Corect bug chearge picture
+
+5. Version 0.17 [2020- 02-08]
+- Creat export phonbook in Html
+
 4. Version 0.15 [2020-01-26]
 
 - Add: Remouve picture profil

@@ -39,6 +39,8 @@ namespace Phonebook
 
 
                 string idContacts = Path.GetFileNameWithoutExtension(elements[i]);
+
+                XmlNode nodePicture = document.DocumentElement.SelectSingleNode("/contact/picture");
                 XmlNode nodeName = document.DocumentElement.SelectSingleNode("/contact/name");
                 XmlNode nodeLastName = document.DocumentElement.SelectSingleNode("/contact/lastName");
                 XmlNode nodeHome = document.DocumentElement.SelectSingleNode("/contact/homePhone");
@@ -51,22 +53,22 @@ namespace Phonebook
                 XmlNode nodePostalCode = document.DocumentElement.SelectSingleNode("/contact/postalCode");
                 XmlNode nodeBirthday = document.DocumentElement.SelectSingleNode("/contact/birthday");
                 XmlNode nodeNote = document.DocumentElement.SelectSingleNode("/contact/note");
-                XmlNode nodePicture = document.DocumentElement.SelectSingleNode("/contact/picture");
 
                 string picture = "";
 
-                if (nodePicture != null)
+                if (nodePicture == null)
                 {
-                    picture = nodePicture.InnerText;
+                    picture = "";
                 }
                 else
                 {
-                    picture = "";
+                    picture = nodePicture.InnerText;
                 }
 
                 string[] newElement =
                 {
                     idContacts,
+                    picture,
                     nodeName.InnerText,
                     nodeLastName.InnerText,
                     nodeHome.InnerText,
@@ -78,8 +80,7 @@ namespace Phonebook
                     nodeCity.InnerText,
                     nodePostalCode.InnerText,
                     nodeBirthday.InnerText,
-                    nodeNote.InnerText,
-                    picture
+                    nodeNote.InnerText
                 };
 
                 table_phonebook.Rows.Add(newElement);
@@ -93,7 +94,11 @@ namespace Phonebook
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = Variable.nameSaftware + " " + Variable.verisonSoftware;
+            this.Text = Variable.nameSoftware + " " + Variable.verisonSoftware;
+
+            Variable.ControlDatabaseUser();
+            Variable.ControlRouteDatabase();
+
             ChargeNewContact();
         }
 
@@ -165,19 +170,19 @@ namespace Phonebook
             addContact.FormClosing += new FormClosingEventHandler(CloseNewContact);
 
             addContact.IdContact = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
-            addContact.Name = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
-            addContact.LastName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
-            addContact.HomePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
-            addContact.OfficePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
-            addContact.MobilePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
-            addContact.Email = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
-            addContact.Website = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
-            addContact.Address = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
-            addContact.City = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
-            addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
-            addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
-            addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
-            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
+            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
+            addContact.Name = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
+            addContact.LastName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
+            addContact.HomePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
+            addContact.OfficePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
+            addContact.MobilePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
+            addContact.Email = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
+            addContact.Website = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
+            addContact.Address = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
+            addContact.City = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
+            addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
+            addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
+            addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
 
             addContact.EditContact = 1;
 
@@ -402,10 +407,9 @@ namespace Phonebook
                     Process.Start(saveExpoContactHtml.FileName);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -435,6 +439,7 @@ namespace Phonebook
             + "<thead class=\"thead-dark\">\n"
             + "<tr>\n"
             + "<th scope=\"col\">#</th>\n"
+            //+ "<th scope=\"col\">Picture</th>\n"
             + "<th scope=\"col\">Name</th>\n"
             + "<th scope=\"col\">LastName</th>\n"
             + "<th scope=\"col\">Phone Number</th>\n"
@@ -451,13 +456,13 @@ namespace Phonebook
             + "</thead>\n"
             + "<tbody>\n";
 
-            int coutnContacts  = 1;
+            int coutnContacts = 1;
 
             for (int i = 0; i < table_phonebook.RowCount - 1; i++)
             {
                 resultOfHtml += "<tr>\n"
                     + "<th scope=\"row\">" + coutnContacts + "</th>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[1].Value.ToString() + "</td>\n"
+                    //+ "<td>" + table_phonebook.Rows[i].Cells[1].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
@@ -469,6 +474,7 @@ namespace Phonebook
                     + "<td>" + table_phonebook.Rows[i].Cells[10].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[11].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[12].Value.ToString() + "</td>\n"
+                    + "<td>" + table_phonebook.Rows[i].Cells[13].Value.ToString() + "</td>\n"
                     + "<\tr>\n";
 
                 coutnContacts++;
@@ -477,16 +483,21 @@ namespace Phonebook
             resultOfHtml += "</tbody>\n"
                 + "<tfoor>\n"
                 + "<tr>\n"
-                + "<td colspan=\"5\"> All Contacts: "+ statusContact.Tag.ToString() + "</td>\n"
+                + "<td colspan=\"5\"> All Contacts: " + statusContact.Tag.ToString() + "</td>\n"
                 + "</tr>\n"
                 + "</tfoor>\n"
                 + "</table>\n"
-                + "<p class=\"text-withe\">Html generated from " + Variable.nameSaftware + " " + Variable.verisonSoftware + "</p>\n"
+                + "<p class=\"text-withe\">Html generated from " + Variable.nameSoftware + " " + Variable.verisonSoftware + "</p>\n"
                   + "</div>\n"
                 + "</body>\n"
                 + "</html>\n";
             return resultOfHtml;
         }
         #endregion
+
+        private void menuExport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
