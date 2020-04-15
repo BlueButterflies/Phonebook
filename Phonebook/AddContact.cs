@@ -19,7 +19,6 @@ namespace Phonebook
     public partial class AddContact : Form
     {
         public string IdContact { get; set; }
-public string PictureProfil { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string HomePhone { get; set; }
@@ -32,8 +31,9 @@ public string PictureProfil { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Note { get; set; }
+        public string PictureProfil { get; set; }
         public int EditContact { get; set; }
-        
+
 
         public AddContact()
         {
@@ -192,7 +192,6 @@ public string PictureProfil { get; set; }
                 (
                 new XElement("contact",
 
-                new XElement("picture", databaseFotoFinal),
                 new XElement("name", textBox_name.Text),
                 new XElement("lastName", textBox_lastName.Text),
                 new XElement("homePhone", textBox_home.Text),
@@ -204,7 +203,8 @@ public string PictureProfil { get; set; }
                 new XElement("address", textBox_address.Text),
                 new XElement("city", textBox_city.Text),
                 new XElement("postalCode", textBox_postalCode.Text),
-                new XElement("note", textBox_note.Text)
+                new XElement("note", textBox_note.Text),
+                new XElement("picture", databaseFotoFinal)
                 ));
 
             Variable.ControlRouteDatabase();
@@ -394,6 +394,16 @@ public string PictureProfil { get; set; }
         private void openChargeFoto_FileOk(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateBirthay_ValueChanged(object sender, EventArgs e)
+        {
+            dateBirthay.CalendarForeColor = Color.Coral;
         }
     }
 }

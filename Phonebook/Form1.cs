@@ -40,7 +40,6 @@ namespace Phonebook
 
                 string idContacts = Path.GetFileNameWithoutExtension(elements[i]);
 
-                XmlNode nodePicture = document.DocumentElement.SelectSingleNode("/contact/picture");
                 XmlNode nodeName = document.DocumentElement.SelectSingleNode("/contact/name");
                 XmlNode nodeLastName = document.DocumentElement.SelectSingleNode("/contact/lastName");
                 XmlNode nodeHome = document.DocumentElement.SelectSingleNode("/contact/homePhone");
@@ -53,6 +52,7 @@ namespace Phonebook
                 XmlNode nodePostalCode = document.DocumentElement.SelectSingleNode("/contact/postalCode");
                 XmlNode nodeBirthday = document.DocumentElement.SelectSingleNode("/contact/birthday");
                 XmlNode nodeNote = document.DocumentElement.SelectSingleNode("/contact/note");
+                XmlNode nodePicture = document.DocumentElement.SelectSingleNode("/contact/picture");
 
                 string picture = "";
 
@@ -68,7 +68,6 @@ namespace Phonebook
                 string[] newElement =
                 {
                     idContacts,
-                    picture,
                     nodeName.InnerText,
                     nodeLastName.InnerText,
                     nodeHome.InnerText,
@@ -80,7 +79,8 @@ namespace Phonebook
                     nodeCity.InnerText,
                     nodePostalCode.InnerText,
                     nodeBirthday.InnerText,
-                    nodeNote.InnerText
+                    nodeNote.InnerText,
+                    picture
                 };
 
                 table_phonebook.Rows.Add(newElement);
@@ -170,19 +170,20 @@ namespace Phonebook
             addContact.FormClosing += new FormClosingEventHandler(CloseNewContact);
 
             addContact.IdContact = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
-            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
-            addContact.Name = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
-            addContact.LastName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
-            addContact.HomePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
-            addContact.OfficePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
-            addContact.MobilePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
-            addContact.Email = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
-            addContact.Website = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
-            addContact.Address = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
-            addContact.City = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
-            addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
-            addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
-            addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
+
+            addContact.Name = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
+            addContact.LastName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
+            addContact.HomePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
+            addContact.OfficePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
+            addContact.MobilePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
+            addContact.Email = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
+            addContact.Website = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
+            addContact.Address = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
+            addContact.City = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
+            addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
+            addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
+            addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
+            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
 
             addContact.EditContact = 1;
 
@@ -367,31 +368,6 @@ namespace Phonebook
         }
         #endregion
 
-        private void table_phonebook_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void table_phonebook_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
-
-        private void menu_tool_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void sentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         #region Menu File Export All Contacts
         private void exportAllContacts_Click(object sender, EventArgs e)
         {
@@ -439,7 +415,6 @@ namespace Phonebook
             + "<thead class=\"thead-dark\">\n"
             + "<tr>\n"
             + "<th scope=\"col\">#</th>\n"
-            //+ "<th scope=\"col\">Picture</th>\n"
             + "<th scope=\"col\">Name</th>\n"
             + "<th scope=\"col\">LastName</th>\n"
             + "<th scope=\"col\">Phone Number</th>\n"
@@ -462,7 +437,6 @@ namespace Phonebook
             {
                 resultOfHtml += "<tr>\n"
                     + "<th scope=\"row\">" + coutnContacts + "</th>\n"
-                    //+ "<td>" + table_phonebook.Rows[i].Cells[1].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
                     + "<td>" + table_phonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
@@ -495,7 +469,56 @@ namespace Phonebook
         }
         #endregion
 
+        #region Menu ? Send Feedback
+        private void toolSendFeedback_Click(object sender, EventArgs e)
+        {
+            FeedbackForm feedback = new FeedbackForm();
+
+            feedback.ShowDialog();
+        }
+        #endregion
+
+        #region From File - Settings
+        private void menuSettings_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+
+            settings.ShowDialog();
+
+        }
+        #endregion
+
+        private void table_phonebook_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void table_phonebook_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void menu_tool_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void sentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void menuExport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolTextSearch_Click(object sender, EventArgs e)
         {
 
         }
