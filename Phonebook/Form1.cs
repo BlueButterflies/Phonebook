@@ -20,14 +20,27 @@ namespace Phonebook
             InitializeComponent();
         }
 
-        #region Creat, charge and add new contact from bottons
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.Text = Variable.nameSoftware + " " + Variable.verisonSoftware;
+
+            ChargeDataBase();
+
+            //Charge Notification
+            Notifications notifications = new Notifications();
+            notifications.Show();
+        }
+
+        #region Creat, charge contacts, charge database and add new contact from bottons
         private void ChargeNewContact()//Charge new contact
         {
             statusContact.Text = "Contacts: " + Variable.CounterNumberElement().ToString();
 
             statusContact.Tag = Variable.CounterNumberElement().ToString();
 
-            table_phonebook.Rows.Clear();
+            Variable.phonebookActive = Variable.variableDatabase;
+
+            tablePhonebook.Rows.Clear();
 
             string[] elements = new string[Variable.CounterNumberElement()];
             elements = Variable.ChargeItems();
@@ -83,26 +96,44 @@ namespace Phonebook
                     picture
                 };
 
-                table_phonebook.Rows.Add(newElement);
+                tablePhonebook.Rows.Add(newElement);
             }
         }
 
         private void CloseNewContact(object sender, FormClosingEventArgs e)// Add contact
         {
             ChargeNewContact();
+
+            if (tablePhonebook.Rows.Count > 0)
+            {
+                botton_edit.Enabled = true;
+                botton_remove.Enabled = true;
+                menu_editContact.Enabled = true;
+                menuRemoveContact.Enabled = true;
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ChargeDataBase()// Charge database
         {
-            this.Text = Variable.nameSoftware + " " + Variable.verisonSoftware;
-
             Variable.ControlDatabaseUser();
             Variable.ControlRouteDatabase();
 
             ChargeNewContact();
+
+            if (tablePhonebook.Rows.Count > 0)
+            {
+                botton_edit.Enabled = true;
+                botton_remove.Enabled = true;
+                menu_editContact.Enabled = true;
+                menuRemoveContact.Enabled = true;
+            }
+
+            this.Text = Variable.nameSoftware + " " + Variable.verisonSoftware + " - " + Variable.phonebookActive;
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)// Add new contact from Icon 
+
+
+        private void botton_add_Click(object sender, EventArgs e)// Add new contact from Icon 
         {
             AddContact addContact = new AddContact();
 
@@ -114,17 +145,23 @@ namespace Phonebook
         }
         private void menu_addNewContact_Click(object sender, EventArgs e) // Add new contact from menu(up) Edit
         {
-            toolStripButton1_Click(sender, new EventArgs());
+            botton_add_Click(sender, new EventArgs());
         }
         #endregion
 
         #region Remove Contact from bottons
         private void botton_remove_Click(object sender, EventArgs e) // Remove contact from Icon
         {
-            string idContact = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
+            if (tablePhonebook.Rows.Count == 0)
+            {
+                MessageBox.Show("There are no contacts present  for delete.");
+                return;
+            }
 
-            string nameAndLastrName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString() + " "
-                + table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
+            string idContact = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+            string nameAndLastrName = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[1].Value.ToString() + " "
+                + tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
 
             DialogResult userChoice = MessageBox.Show("Are you sure to cancel " + nameAndLastrName + "?", "Delete contact", MessageBoxButtons.YesNo);
 
@@ -153,10 +190,17 @@ namespace Phonebook
                 MessageBox.Show("Contact deleted");
 
                 ChargeNewContact();
+
+                if (tablePhonebook.Rows.Count == 0)
+                {
+                    botton_edit.Enabled = false;
+                    botton_remove.Enabled = false;
+                    menu_editContact.Enabled = false;
+                    menuRemoveContact.Enabled = false;
+                }
             }
         }
-
-        private void menu_removeContact_Click(object sender, EventArgs e) // Remove contact from menu(up) Edit
+        private void menuRemoveContact_Click(object sender, EventArgs e)
         {
             botton_remove_Click(sender, new EventArgs());
         }
@@ -165,25 +209,31 @@ namespace Phonebook
         #region Edit contacts
         private void botton_edit_Click(object sender, EventArgs e) // Edit from Icon 
         {
+            if (tablePhonebook.Rows.Count == 0)
+            {
+                MessageBox.Show("There are no contacts present  for edit.");
+                return;
+            }
+
             AddContact addContact = new AddContact();
 
             addContact.FormClosing += new FormClosingEventHandler(CloseNewContact);
 
-            addContact.IdContact = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
+            addContact.IdContact = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[0].Value.ToString();
 
-            addContact.Name = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
-            addContact.LastName = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
-            addContact.HomePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
-            addContact.OfficePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
-            addContact.MobilePhone = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
-            addContact.Email = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
-            addContact.Website = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
-            addContact.Address = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
-            addContact.City = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
-            addContact.PostalCode = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
-            addContact.Birthday = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
-            addContact.Note = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
-            addContact.PictureProfil = table_phonebook.Rows[table_phonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
+            addContact.Name = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[1].Value.ToString();
+            addContact.LastName = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[2].Value.ToString();
+            addContact.HomePhone = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[3].Value.ToString();
+            addContact.OfficePhone = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[4].Value.ToString();
+            addContact.MobilePhone = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[5].Value.ToString();
+            addContact.Email = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[6].Value.ToString();
+            addContact.Website = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[7].Value.ToString();
+            addContact.Address = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[8].Value.ToString();
+            addContact.City = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[9].Value.ToString();
+            addContact.PostalCode = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[10].Value.ToString();
+            addContact.Birthday = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[11].Value.ToString();
+            addContact.Note = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[12].Value.ToString();
+            addContact.PictureProfil = tablePhonebook.Rows[tablePhonebook.CurrentCell.RowIndex].Cells[13].Value.ToString();
 
             addContact.EditContact = 1;
 
@@ -209,7 +259,7 @@ namespace Phonebook
         {
             statusContact.Text = "Contacts: " + Variable.CounterNumberElement().ToString();
 
-            table_phonebook.Rows.Clear();
+            tablePhonebook.Rows.Clear();
 
             string[] elements = new string[Variable.CounterNumberElement()];
             elements = Variable.ChargeItems();
@@ -253,10 +303,10 @@ namespace Phonebook
 
                 if (elemntsSearch.Contains(textSearch.ToLower()))
                 {
-                    table_phonebook.Rows.Add(newElement);
+                    tablePhonebook.Rows.Add(newElement);
                 }
                 statusContact.Text = "Contacts: " + Variable.CounterNumberElement().ToString()
-                    + "(Filtered: " + table_phonebook.Rows.Count + ")";
+                    + "(Filtered: " + tablePhonebook.Rows.Count + ")";
             }
         }
 
@@ -266,7 +316,7 @@ namespace Phonebook
             {
                 SearchContacts(toolTextSearch.Text);
 
-                if (table_phonebook.Rows.Count == 0)
+                if (tablePhonebook.Rows.Count == 0)
                 {
                     MessageBox.Show("No contacts were found");
                     ChargeNewContact();
@@ -287,26 +337,26 @@ namespace Phonebook
                 if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
                 {
                     //Selected Cell Position
-                    table_phonebook.CurrentCell = table_phonebook.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                    table_phonebook.Rows[e.RowIndex].Selected = true;
-                    table_phonebook.Focus();
+                    tablePhonebook.CurrentCell = tablePhonebook.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    tablePhonebook.Rows[e.RowIndex].Selected = true;
+                    tablePhonebook.Focus();
 
                     //Veiw Context Menu
-                    table_phonebook.ContextMenuStrip = contextMenu;
+                    tablePhonebook.ContextMenuStrip = contextMenu;
                     Point positionContextMenu = new Point(MousePosition.X, MousePosition.Y);
-                    table_phonebook.ContextMenuStrip.Show(positionContextMenu);
-                    table_phonebook.ContextMenuStrip = null;
+                    tablePhonebook.ContextMenuStrip.Show(positionContextMenu);
+                    tablePhonebook.ContextMenuStrip = null;
                 }
                 else
                 {
-                    table_phonebook.ContextMenuStrip = null;
+                    tablePhonebook.ContextMenuStrip = null;
                 }
             }
         }
 
         private void menuRightSendEmail_Click(object sender, EventArgs e)
         {
-            string sendEmail = table_phonebook.SelectedRows[0].Cells[6].Value.ToString();
+            string sendEmail = tablePhonebook.SelectedRows[0].Cells[6].Value.ToString();
 
             if (sendEmail.Length > 0)
             {
@@ -316,7 +366,7 @@ namespace Phonebook
 
         private void menuRightWeb_Click(object sender, EventArgs e)
         {
-            string website = table_phonebook.SelectedRows[0].Cells[7].Value.ToString();
+            string website = tablePhonebook.SelectedRows[0].Cells[7].Value.ToString();
 
             if (website.Length > 0)
             {
@@ -326,12 +376,12 @@ namespace Phonebook
 
         private void menuZodiac_Click(object sender, EventArgs e)
         {
-            string dateBirth = table_phonebook.SelectedRows[0].Cells[11].Value.ToString();
+            string dateBirth = tablePhonebook.SelectedRows[0].Cells[11].Value.ToString();
 
             if (dateBirth.Length > 0)
             {
-                string name = table_phonebook.SelectedRows[0].Cells[1].Value.ToString();
-                string lastName = table_phonebook.SelectedRows[0].Cells[2].Value.ToString();
+                string name = tablePhonebook.SelectedRows[0].Cells[1].Value.ToString();
+                string lastName = tablePhonebook.SelectedRows[0].Cells[2].Value.ToString();
                 string zodiacSign = Variable.ZodiacSign(dateBirth);
 
                 string message = string.Format($"Zodiac Sing of {name} {lastName} is {zodiacSign}.");
@@ -346,14 +396,14 @@ namespace Phonebook
 
         private void viewAgeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dateBirth = table_phonebook.SelectedRows[0].Cells[11].Value.ToString();
+            string dateBirth = tablePhonebook.SelectedRows[0].Cells[11].Value.ToString();
 
             if (dateBirth.Length > 0)
             {
-                string name = table_phonebook.SelectedRows[0].Cells[1].Value.ToString();
-                string lastName = table_phonebook.SelectedRows[0].Cells[2].Value.ToString();
+                string name = tablePhonebook.SelectedRows[0].Cells[1].Value.ToString();
+                string lastName = tablePhonebook.SelectedRows[0].Cells[2].Value.ToString();
                 string age = Variable.CalcoleteAge(dateBirth);
-                string birthday = table_phonebook.SelectedRows[0].Cells[11].Value.ToString();
+                string birthday = tablePhonebook.SelectedRows[0].Cells[11].Value.ToString();
 
                 string message = string.Format($"{name} {lastName} is {age} years old and born on {birthday}");
                 MessageBox.Show(message);
@@ -433,22 +483,22 @@ namespace Phonebook
 
             int coutnContacts = 1;
 
-            for (int i = 0; i < table_phonebook.RowCount - 1; i++)
+            for (int i = 0; i < tablePhonebook.RowCount - 1; i++)
             {
                 resultOfHtml += "<tr>\n"
                     + "<th scope=\"row\">" + coutnContacts + "</th>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[5].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[6].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[7].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[8].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[9].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[10].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[11].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[12].Value.ToString() + "</td>\n"
-                    + "<td>" + table_phonebook.Rows[i].Cells[13].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[5].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[6].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[7].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[8].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[9].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[10].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[11].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[12].Value.ToString() + "</td>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[13].Value.ToString() + "</td>\n"
                     + "<\tr>\n";
 
                 coutnContacts++;
@@ -483,8 +533,20 @@ namespace Phonebook
         {
             Settings settings = new Settings();
 
+            settings.FormClosing += new FormClosingEventHandler(ClosingFormSetting);
+
             settings.ShowDialog();
 
+        }
+
+        private void ClosingFormSetting(object sender, FormClosingEventArgs e)
+        {
+            Variable.ControlDatabaseUser();
+
+            if (Variable.phonebookActive != Variable.variableDatabase)
+            {
+                ChargeDataBase();
+            }
         }
         #endregion
 
@@ -522,5 +584,7 @@ namespace Phonebook
         {
 
         }
+
+
     }
 }

@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contact>
-  <picture>C:\Users\Dsvk2\Desktop\Projects\Phonebook\Database\\Picture\1.JPG</picture>
-  <name>axscdzvfxbg</name>
-  <lastName>axsdcfvg</lastName>
+  <name>hhahhah</name>
+  <lastName>ahahhaah</lastName>
   <homePhone></homePhone>
   <officePhone></officePhone>
   <mobilePhone></mobilePhone>
@@ -13,4 +12,5 @@
   <city></city>
   <postalCode></postalCode>
   <note></note>
+  <picture></picture>
 </contact>

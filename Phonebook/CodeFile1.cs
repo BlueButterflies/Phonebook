@@ -15,11 +15,25 @@ static class Variable
     public static string verisonSoftware = "0.17";
     public static string nameSoftware = "Phonebook";
 
+    public static string phonebookActive = "";
+
     public static void ControlDatabaseUser()
     {
         if (Phonebook.Properties.Settings.Default.DatabasePath != "")
         {
-            variableDatabase = Phonebook.Properties.Settings.Default.DatabasePath + @"\Projects\Phonebook\Database\";
+            variableDatabase = Phonebook.Properties.Settings.Default.DatabasePath;
+
+            if (variableDatabase.EndsWith(@"\Projects\Phonebook\Database\") == false && variableDatabase.EndsWith(@"\Projects\Phonebook\Database") == false)
+            {
+                if (variableDatabase.EndsWith(@"\Projects\Phonebook\") == true || variableDatabase.EndsWith(@"\Projects\Phonebook") == true)
+                {
+                    variableDatabase = Phonebook.Properties.Settings.Default.DatabasePath + @"\Projects\Phonebook\";
+                }
+                else
+                {
+                    variableDatabase = Phonebook.Properties.Settings.Default.DatabasePath + @"\Projects\Phonebook\Database\";
+                }
+            }
 
             variableDatabasePicture = variableDatabase + @"\Picture\";
         }
@@ -32,6 +46,7 @@ static class Variable
             Directory.CreateDirectory(variableDatabase);
             Directory.CreateDirectory(variableDatabasePicture);
         }
+
     }
 
     public static int CounterNumberElement() => Directory.GetFiles(variableDatabase).Length;

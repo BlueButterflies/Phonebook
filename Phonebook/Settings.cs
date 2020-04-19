@@ -24,7 +24,7 @@ namespace Phonebook
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            selectStartWindows.Text = string.Format($"selection if you start the {Variable.nameSoftware} when windows opens");
+            selectStartWindows.Text = string.Format($"Selection if you start the {Variable.nameSoftware} when windows opens");
 
             if (Properties.Settings.Default.OpenWindows == true)
             {
@@ -36,6 +36,13 @@ namespace Phonebook
             }
 
             textChooseFile.Text = Properties.Settings.Default.DatabasePath;
+
+            if (textChooseFile.Text == null)
+            {
+                textChooseFile.Text = Variable.variableDatabase;
+            }
+
+            folderSelect.SelectedPath = Variable.variableDatabase;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -49,22 +56,54 @@ namespace Phonebook
 
             if (checkStart.Checked == true)
             {
-                Properties.Settings.Default.OpenWindows = true;
-                Microsoft.Win32.Registry.SetValue(@"HKayLocaleMachine\Software\Microsoft\Windows\CurrentVersion\Run", "Phonebook", 
-                                                  Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String);
+                Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+
+                try
+                {
+                    Properties.Settings.Default.OpenWindows = true;
+
+                    if (registryKey.GetValue("Phonebook") == null
+                        || registryKey.GetValue("Phonebook").ToString() != Application.ExecutablePath)
+                    {
+                        Microsoft.Win32.Registry.SetValue(@"HKayLocaleMachine\Software\Microsoft\Windows\CurrentVersion\Run", "Phonebook",
+                                                          Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show(string.Format($"Unable to edit registry, start {Variable.nameSoftware} as administrator"));
+                }
+
             }
             else
             {
                 Properties.Settings.Default.OpenWindows = false;
 
-                Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                try
+                {
+                    Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
 
-                registryKey.DeleteValue("Phonebook", false);
+                    if (registryKey.GetValue("Phonebook") != null)
+                    {
+                        registryKey.DeleteValue("Phonebook", false);
+                    }
+                }
+                catch
+                {
+                }
+
             }
 
             Properties.Settings.Default.Save();
 
             this.Close();
+        }
+
+        private void select_Click(object sender, EventArgs e)
+        {
+            folderSelect.ShowDialog();
+
+            textChooseFile.Text = folderSelect.SelectedPath;
         }
     }
 }

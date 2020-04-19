@@ -241,8 +241,8 @@ namespace Phonebook
         #region Check if window has been opened for new contact or to change the contact
         private void AddContact_Load(object sender, EventArgs e)
         {
-            //Reset width Form.AddContact
-            this.Width = 371;
+            //Reset width Form.AddContact 
+            this.Width = 394;
 
             if (EditContact == 1)
             {
@@ -294,15 +294,15 @@ namespace Phonebook
         #region Botton for Picture
         private void buttonFoto_Click(object sender, EventArgs e)
         {
-            if (this.Width == 371)
+            if (this.Width == 394)
             {
-                this.Width = 590;
+                this.Width = 634;
 
                 buttonFoto.Text = "<< Reduce";
             }
             else
             {
-                this.Width = 371;
+                this.Width = 394;
 
                 buttonFoto.Text = "View Foto >>";
             }
@@ -404,6 +404,16 @@ namespace Phonebook
         private void dateBirthay_ValueChanged(object sender, EventArgs e)
         {
             dateBirthay.CalendarForeColor = Color.Coral;
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_email_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
