@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Graph;
 
 namespace Phonebook
 {
@@ -25,11 +26,50 @@ namespace Phonebook
             this.Text = Variable.nameSoftware + " " + Variable.verisonSoftware;
 
             ChargeDataBase();
-
-            //Charge Notification
-            Notifications notifications = new Notifications();
-            notifications.Show();
         }
+
+        #region Charge Notifications
+        private void Notifications()//Charge Notification
+        {
+            Variable.IconNotifics = Properties.Resources.iconfinder_cake_53256;
+            Variable.TitleNotifics = "Birthdays !";
+            Variable.TxtNotifics = "";
+
+            DateTime today = DateTime.Today;
+
+            for (int i = 0; i < tablePhonebook.Rows.Count; i++)
+            {
+                if (tablePhonebook.Rows[i].Cells[11].Value.ToString().Length > 6)
+                {
+                    DateTime birthday = DateTime.Parse(tablePhonebook.Rows[i].Cells[11].Value.ToString()
+                        .Remove(tablePhonebook.Rows[i].Cells[11].Value.ToString().Length - 4) + today.Year);
+                    double dateBeforeByrth = birthday.Subtract(today).TotalDays;
+
+                    if (dateBeforeByrth >= 0 && dateBeforeByrth <= 5)
+                    {
+                        Variable.TxtNotifics += tablePhonebook.Rows[i].Cells[1].Value.ToString()
+                                               + " "
+                                               + tablePhonebook.Rows[i].Cells[2].Value.ToString()
+                                               + " turns "
+                                               + Variable.CalcoleteAge(tablePhonebook.Rows[i].Cells[11].Value.ToString())
+                                               + " on "
+                                               + tablePhonebook.Rows[i].Cells[11].Value.ToString()
+                                               .Remove(tablePhonebook.Rows[i].Cells[11].Value.ToString().Length - 5)
+                                               + " !"
+                                               + Environment.NewLine;
+                    }
+
+                }
+            }
+
+            if (Variable.TxtNotifics.Length > 0)
+            {
+                Notifications notifications = new Notifications();
+                notifications.Show();
+            }
+
+        }
+        #endregion
 
         #region Creat, charge contacts, charge database and add new contact from bottons
         private void ChargeNewContact()//Charge new contact
@@ -169,16 +209,16 @@ namespace Phonebook
             {
                 try
                 {
-                    File.Delete(Variable.variableDatabase + idContact + ".xml");
+                    System.IO.File.Delete(Variable.variableDatabase + idContact + ".xml");
 
-                    if (File.Exists(Variable.variableDatabasePicture + idContact + ".jpg"))
+                    if (System.IO.File.Exists(Variable.variableDatabasePicture + idContact + ".jpg"))
                     {
-                        File.Delete(Variable.variableDatabasePicture + idContact + ".jpg");
+                        System.IO.File.Delete(Variable.variableDatabasePicture + idContact + ".jpg");
                     }
 
-                    if (File.Exists(Variable.variableDatabasePicture + idContact + ".png"))
+                    if (System.IO.File.Exists(Variable.variableDatabasePicture + idContact + ".png"))
                     {
-                        File.Delete(Variable.variableDatabasePicture + idContact + ".png");
+                        System.IO.File.Delete(Variable.variableDatabasePicture + idContact + ".png");
                     }
 
                 }
@@ -360,7 +400,7 @@ namespace Phonebook
 
             if (sendEmail.Length > 0)
             {
-                Process.Start("mailto:" + sendEmail);
+                System.Diagnostics.Process.Start("mailto:" + sendEmail);
             }
         }
 
@@ -370,7 +410,7 @@ namespace Phonebook
 
             if (website.Length > 0)
             {
-                Process.Start(website);
+                System.Diagnostics.Process.Start(website);
             }
         }
 
@@ -429,8 +469,8 @@ namespace Phonebook
                 {
                     string htmlFile = GetHtmlFile();
 
-                    File.WriteAllText(saveExpoContactHtml.FileName, htmlFile);
-                    Process.Start(saveExpoContactHtml.FileName);
+                    System.IO.File.WriteAllText(saveExpoContactHtml.FileName, htmlFile);
+                    System.Diagnostics.Process.Start(saveExpoContactHtml.FileName);
                 }
             }
             catch (Exception ex)
@@ -585,6 +625,19 @@ namespace Phonebook
 
         }
 
+        private void statusContact_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void statusNotifics_Click(object sender, EventArgs e)
+        {
+            Notifications();
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

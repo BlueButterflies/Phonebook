@@ -14,6 +14,7 @@ namespace Phonebook
     public partial class Notifications : Form
     {
         private DateTime tablePhonebook;
+        private int counter;
 
         [DllImport("user32.dll")]
         static extern bool AnimateWindow(IntPtr windows, int time, AnimateWindowsFlags flags);
@@ -45,11 +46,10 @@ namespace Phonebook
             this.Top = height / 2 - this.Height / 2;
 
             AnimateWindow(this.Handle, 800, AnimateWindowsFlags.AW_SLIDE | AnimateWindowsFlags.AW_HOR_NEGATIVE);
-        }
 
-        private void labelBirth_Click(object sender, EventArgs e)
-        {
-
+            pictureBoxNotific.Image = Variable.IconNotifics;
+            labelBirth.Text = Variable.TitleNotifics;
+            txtBox.Text = Variable.TxtNotifics;
         }
     }
 }

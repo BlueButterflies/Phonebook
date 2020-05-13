@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Microsoft.Graph;
 using Phonebook;
+using System.IO;
+using System.Drawing;
 
 static class Variable
 {
@@ -16,6 +18,10 @@ static class Variable
     public static string nameSoftware = "Phonebook";
 
     public static string phonebookActive = "";
+
+    public static System.Drawing.Image IconNotifics;
+    public static string TitleNotifics;
+    public static string TxtNotifics;
 
     public static void ControlDatabaseUser()
     {
@@ -41,19 +47,19 @@ static class Variable
 
     public static void ControlRouteDatabase()
     {
-        if (Directory.Exists(variableDatabase) == false || Directory.Exists(variableDatabasePicture) == false)
+        if (System.IO.Directory.Exists(variableDatabase) == false || System.IO.Directory.Exists(variableDatabasePicture) == false)
         {
-            Directory.CreateDirectory(variableDatabase);
-            Directory.CreateDirectory(variableDatabasePicture);
+            System.IO.Directory.CreateDirectory(variableDatabase);
+            System.IO.Directory.CreateDirectory(variableDatabasePicture);
         }
 
     }
 
-    public static int CounterNumberElement() => Directory.GetFiles(variableDatabase).Length;
+    public static int CounterNumberElement() => System.IO.Directory.GetFiles(variableDatabase).Length;
 
     public static string[] ChargeItems()
     {
-        string[] foundElements = Directory.GetFiles(variableDatabase);
+        string[] foundElements = System.IO.Directory.GetFiles(variableDatabase);
 
         return foundElements;
     }

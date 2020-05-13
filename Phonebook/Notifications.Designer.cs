@@ -37,7 +37,6 @@
             // pictureBoxNotific
             // 
             this.pictureBoxNotific.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.pictureBoxNotific.Image = global::Phonebook.Properties.Resources.iconfinder_cake_53256;
             this.pictureBoxNotific.Location = new System.Drawing.Point(76, 4);
             this.pictureBoxNotific.Name = "pictureBoxNotific";
             this.pictureBoxNotific.Size = new System.Drawing.Size(110, 90);
@@ -51,10 +50,8 @@
             this.labelBirth.Font = new System.Drawing.Font("Franklin Gothic Medium", 14F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBirth.Location = new System.Drawing.Point(80, 104);
             this.labelBirth.Name = "labelBirth";
-            this.labelBirth.Size = new System.Drawing.Size(103, 24);
+            this.labelBirth.Size = new System.Drawing.Size(0, 24);
             this.labelBirth.TabIndex = 1;
-            this.labelBirth.Text = "Birthdays!";
-            this.labelBirth.Click += new System.EventHandler(this.labelBirth_Click);
             // 
             // txtBox
             // 
@@ -79,7 +76,7 @@
             this.Controls.Add(this.pictureBoxNotific);
             this.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Notifications";
