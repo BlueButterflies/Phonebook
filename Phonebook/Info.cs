@@ -17,9 +17,19 @@ namespace Phonebook
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void lblVersion_Click(object sender, EventArgs e)
         {
             lblVersion.Text = Variable.verisonSoftware;
+        }
+
+        private void Info_Load(object sender, EventArgs e)
+        {
+            lblVersion.Text = "Version " + Variable.verisonSoftware;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

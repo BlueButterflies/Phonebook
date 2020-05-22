@@ -10,11 +10,11 @@ static class Variable
 {
     public static string variableDatabase = Environment
         .GetFolderPath(Environment.SpecialFolder.DesktopDirectory) +
-        @"\Projects\Phonebook\Database\";
+        @"\Phonebook\Database\";
 
     public static string variableDatabasePicture = variableDatabase + @"\Picture\";
 
-    public static string verisonSoftware = "0.17";
+    public static string verisonSoftware = "0.18";
     public static string nameSoftware = "Phonebook";
 
     public static string phonebookActive = "";
