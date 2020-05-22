@@ -93,6 +93,16 @@ namespace Phonebook.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Close_Icon_1398919 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Close_Icon_1398919", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconfinder_list_add_118777 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_list_add_118777", resourceCulture);
@@ -101,12 +111,22 @@ namespace Phonebook.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon iconfinder_macoscontacts_1207906 {
+        internal static System.Drawing.Bitmap iconfinder_macoscontacts_1207906 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_macoscontacts_1207906", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Notification_4200775__1_ {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Notification_4200775 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

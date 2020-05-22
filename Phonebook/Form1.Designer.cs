@@ -92,7 +92,7 @@
             this.viewAgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusContact = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusNotifics = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnNotifics = new System.Windows.Forms.ToolStripSplitButton();
             this.saveExpoContactHtml = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.menu_tool.SuspendLayout();
@@ -136,7 +136,6 @@
             this.menuExport.Name = "menuExport";
             this.menuExport.Size = new System.Drawing.Size(126, 22);
             this.menuExport.Text = "Export";
-            this.menuExport.Click += new System.EventHandler(this.menuExport_Click);
             // 
             // exportAllContacts
             // 
@@ -225,14 +224,15 @@
             // 
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Info";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // toolSendFeedback
             // 
             this.toolSendFeedback.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.toolSendFeedback.Name = "toolSendFeedback";
-            this.toolSendFeedback.Size = new System.Drawing.Size(165, 22);
+            this.toolSendFeedback.Size = new System.Drawing.Size(180, 22);
             this.toolSendFeedback.Text = "Send Feedback";
             this.toolSendFeedback.Click += new System.EventHandler(this.toolSendFeedback_Click);
             // 
@@ -254,7 +254,6 @@
             this.menu_tool.Size = new System.Drawing.Size(747, 59);
             this.menu_tool.TabIndex = 1;
             this.menu_tool.Text = "Menu";
-            this.menu_tool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menu_tool_ItemClicked);
             // 
             // botton_add
             // 
@@ -327,7 +326,6 @@
             this.toolTextSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.toolTextSearch.Name = "toolTextSearch";
             this.toolTextSearch.Size = new System.Drawing.Size(100, 59);
-            this.toolTextSearch.Click += new System.EventHandler(this.toolTextSearch_Click);
             // 
             // tablePhonebook
             // 
@@ -403,12 +401,10 @@
             this.tablePhonebook.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tablePhonebook.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tablePhonebook.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablePhonebook.Size = new System.Drawing.Size(747, 250);
+            this.tablePhonebook.Size = new System.Drawing.Size(747, 249);
             this.tablePhonebook.TabIndex = 3;
-            this.tablePhonebook.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_phonebook_CellContentClick);
             this.tablePhonebook.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_phonebook_CellDoubleClick);
             this.tablePhonebook.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.table_phonebook_CellMouseClick);
-            this.tablePhonebook.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.table_phonebook_CellMouseDoubleClick);
             // 
             // ColID
             // 
@@ -621,35 +617,38 @@
             this.statusStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusContact,
-            this.statusNotifics});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 333);
+            this.btnNotifics});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 332);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(747, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(747, 25);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
-            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // statusContact
             // 
             this.statusContact.BackColor = System.Drawing.SystemColors.MenuBar;
             this.statusContact.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.statusContact.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.statusContact.ForeColor = System.Drawing.SystemColors.Desktop;
             this.statusContact.Name = "statusContact";
-            this.statusContact.Size = new System.Drawing.Size(73, 19);
+            this.statusContact.Size = new System.Drawing.Size(73, 20);
             this.statusContact.Text = "Contacts:  0";
-            this.statusContact.Click += new System.EventHandler(this.statusContact_Click);
             // 
-            // statusNotifics
+            // btnNotifics
             // 
-            this.statusNotifics.AutoToolTip = true;
-            this.statusNotifics.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.statusNotifics.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.statusNotifics.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.statusNotifics.Name = "statusNotifics";
-            this.statusNotifics.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.statusNotifics.Size = new System.Drawing.Size(79, 19);
-            this.statusNotifics.Text = "Notifications";
-            this.statusNotifics.Click += new System.EventHandler(this.statusNotifics_Click);
+            this.btnNotifics.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnNotifics.AutoSize = false;
+            this.btnNotifics.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.btnNotifics.BackgroundImage = global::Phonebook.Properties.Resources.iconfinder_Notification_4200775__1_;
+            this.btnNotifics.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnNotifics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNotifics.DropDownButtonWidth = 0;
+            this.btnNotifics.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNotifics.Name = "btnNotifics";
+            this.btnNotifics.Size = new System.Drawing.Size(20, 23);
+            this.btnNotifics.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.btnNotifics.ToolTipText = "Notifications";
+            this.btnNotifics.ButtonClick += new System.EventHandler(this.btnNotifics_ButtonClick_1);
             // 
             // saveExpoContactHtml
             // 
@@ -743,7 +742,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColBirthday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColNote;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColPicture;
-        private System.Windows.Forms.ToolStripStatusLabel statusNotifics;
+        private System.Windows.Forms.ToolStripSplitButton btnNotifics;
     }
 }
 

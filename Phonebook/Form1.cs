@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Diagnostics;
-using Microsoft.Graph;
 
 namespace Phonebook
 {
@@ -590,54 +589,20 @@ namespace Phonebook
         }
         #endregion
 
-        private void table_phonebook_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void table_phonebook_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
-
-        private void menu_tool_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void sentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menuExport_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolTextSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void statusContact_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void statusNotifics_Click(object sender, EventArgs e)
         {
             Notifications();
         }
 
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void btnNotifics_ButtonClick_1(object sender, EventArgs e)
         {
+            Notifications();
+        }
 
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Info info = new Info();
+            info.ShowDialog();
         }
     }
 }

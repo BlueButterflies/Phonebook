@@ -31,13 +31,14 @@
             this.pictureBoxNotific = new System.Windows.Forms.PictureBox();
             this.labelBirth = new System.Windows.Forms.Label();
             this.txtBox = new System.Windows.Forms.TextBox();
+            this.btnClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNotific)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxNotific
             // 
             this.pictureBoxNotific.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.pictureBoxNotific.Location = new System.Drawing.Point(76, 4);
+            this.pictureBoxNotific.Location = new System.Drawing.Point(76, 12);
             this.pictureBoxNotific.Name = "pictureBoxNotific";
             this.pictureBoxNotific.Size = new System.Drawing.Size(110, 90);
             this.pictureBoxNotific.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -59,24 +60,37 @@
             this.txtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBox.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.txtBox.Location = new System.Drawing.Point(27, 147);
+            this.txtBox.Location = new System.Drawing.Point(27, 160);
             this.txtBox.Multiline = true;
             this.txtBox.Name = "txtBox";
             this.txtBox.Size = new System.Drawing.Size(208, 209);
             this.txtBox.TabIndex = 2;
+            // 
+            // btnClose
+            // 
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Image = global::Phonebook.Properties.Resources.iconfinder_Close_Icon_1398919;
+            this.btnClose.Location = new System.Drawing.Point(239, -2);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(24, 23);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // Notifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(262, 368);
+            this.ClientSize = new System.Drawing.Size(262, 381);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtBox);
             this.Controls.Add(this.labelBirth);
             this.Controls.Add(this.pictureBoxNotific);
             this.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Notifications";
@@ -97,5 +111,6 @@
         private System.Windows.Forms.PictureBox pictureBoxNotific;
         private System.Windows.Forms.Label labelBirth;
         private System.Windows.Forms.TextBox txtBox;
+        private System.Windows.Forms.Button btnClose;
     }
 }
