@@ -5,9 +5,9 @@
   <img src="https://user-images.githubusercontent.com/52591976/79785636-75777800-8344-11ea-87d3-cae470ebba31.png"width =200/>
 </p>
 <p>
-  <a href=https://github.com/BlueButterflies/Phonebook/files/4669758/setup.zip" download>
+  /*<a href=https://github.com/BlueButterflies/Phonebook/files/4669758/setup.zip" download>
     <h2 align="center">
-      Click to download Phonebook to try it!
+     // Click to download Phonebook to try it!*/
     </h2>
   </a>
 </p>
