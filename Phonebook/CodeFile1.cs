@@ -14,7 +14,7 @@ static class Variable
 
     public static string variableDatabasePicture = variableDatabase + @"\Picture\";
 
-    public static string verisonSoftware = "0.18";
+    public static string verisonSoftware = "0.19";
     public static string nameSoftware = "Phonebook";
 
     public static string phonebookActive = "";
