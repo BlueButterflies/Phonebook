@@ -522,10 +522,11 @@ namespace Phonebook
 
             int coutnContacts = 1;
 
-            for (int i = 0; i < tablePhonebook.RowCount - 1; i++)
+            for (int i = 0; i < tablePhonebook.RowCount; i++)
             {
                 resultOfHtml += "<tr>\n"
                     + "<th scope=\"row\">" + coutnContacts + "</th>\n"
+                    + "<td>" + tablePhonebook.Rows[i].Cells[1].Value.ToString() + "</td>\n"
                     + "<td>" + tablePhonebook.Rows[i].Cells[2].Value.ToString() + "</td>\n"
                     + "<td>" + tablePhonebook.Rows[i].Cells[3].Value.ToString() + "</td>\n"
                     + "<td>" + tablePhonebook.Rows[i].Cells[4].Value.ToString() + "</td>\n"
@@ -537,7 +538,6 @@ namespace Phonebook
                     + "<td>" + tablePhonebook.Rows[i].Cells[10].Value.ToString() + "</td>\n"
                     + "<td>" + tablePhonebook.Rows[i].Cells[11].Value.ToString() + "</td>\n"
                     + "<td>" + tablePhonebook.Rows[i].Cells[12].Value.ToString() + "</td>\n"
-                    + "<td>" + tablePhonebook.Rows[i].Cells[13].Value.ToString() + "</td>\n"
                     + "<\tr>\n";
 
                 coutnContacts++;
