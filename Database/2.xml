@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contact>
+  <name>Kathryn</name>
+  <lastName>Atanasova</lastName>
+  <homePhone>2222</homePhone>
+  <officePhone>77777786559</officePhone>
+  <mobilePhone>3333333</mobilePhone>
+  <email>email@live.com</email>
+  <website></website>
+  <birthday> </birthday>
+  <address></address>
+  <city>NY</city>
+  <postalCode></postalCode>
+  <note></note>
+  <picture></picture>
+</contact>

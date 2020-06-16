@@ -467,7 +467,7 @@
             this.MinimizeBox = false;
             this.Name = "AddContact";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Contact";
             this.Load += new System.EventHandler(this.AddContact_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
