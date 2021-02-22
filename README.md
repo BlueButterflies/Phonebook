@@ -1,4 +1,4 @@
-# Phonebook whit C# in Visual Studio 
+# Phonebook with C# in Visual Studio 
 <h4> This Desktop Application project is a simple phone book, where you can calculate the age,zodiac sign of the contact, has notifications for each contact's birthday, and than export to HTML format. 
 <h4/>
   <br/>
