@@ -9,14 +9,6 @@ I don't use databases SQL, but it creates a database folder in the user's PC wit
  <p align="center">
   <img src="https://user-images.githubusercontent.com/52591976/79785636-75777800-8344-11ea-87d3-cae470ebba31.png"width =200/>
 </p>
-<p>
-  <a href="https://github.com/BlueButterflies/Phonebook/files/4786472/phonebookSetup.zip" download>
-    <h2 align="center">
-      Click to download Phonebook to try it!
-    </h2>
-  </a>            
-</p>
-
 <table>
   <tr>
     <td>
